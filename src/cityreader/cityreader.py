@@ -4,13 +4,13 @@ import csv
 
 
 class City:
-    def __init__(self, name, lat, lng):
+    def __init__(self, name, lat, lon):
         self.name = name
         self.lat = lat
-        self.lng = lng
+        self.lon = lon
 
     def __str__(self):
-        return f"{self.name}, {self.lat}, {self.lng}"
+        return f"{self.name}, {self.lat}, {self.lon}"
 
 
 # We have a collection of US cities with population over 750,000 stored in the
@@ -34,13 +34,14 @@ def cityreader(cities=[]):
   # `cities` list
 
     with open("src\cityreader\cities.csv", "r", newline="") as cityFile:
-        reader = csv.DictReader(cityFile, delimiter=",")
+        reader = csv.reader(cityFile)
 
         for record in reader:
-            # print(record)  # need [0][3][4]
-            # city = City(record[0], record[3], record[4])
-            cities.append(
-                City(record['city'], record['lat'], record['lng']))
+            if record[0] == "city":
+                continue
+            else:
+                cities.append(
+                    City(record[0], float(record[3]), float(record[4])))
     return cities
 
 
@@ -48,7 +49,7 @@ cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
-    print(c.name, c.lat, c.lng)
+    print(c.name, c.lat, c.lon)
     '''
     print(c.name)
     print(c.lat)
