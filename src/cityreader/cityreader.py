@@ -12,6 +12,9 @@ class City:
     def __str__(self):
         return f"{self.name}, {self.lat}, {self.lon}"
 
+    def __repr__(self):
+        return f'City("{self.name}", {self.lat}, {self.lon})'
+
 
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
@@ -48,9 +51,11 @@ def cityreader(cities=[]):
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
+'''
 for c in cities:
     print(c.name, c.lat, c.lon)
-    '''
+'''
+'''
     print(c.name)
     print(c.lat)
     print(c.lng)
@@ -91,26 +96,29 @@ for c in cities:
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
-
-    lowLat = input("Enter lower lat")
-    lowLon = input("Enter lower lon")
-    highLat = input("Enter high lat")
-    highLon = input("Enter high lon")
-
+    '''
+    lowLat = input("Enter lower lat: ")
+    lowLon = input("Enter lower lon: ")
+    highLat = input("Enter high lat: ")
+    highLon = input("Enter high lon: ")
+    '''
     lowLat = float(lat1)
     lowLon = float(lon1)
     highLat = float(lat2)
     highLon = float(lon2)
 
-    within = [city for city in cities if (lowLat <= city.lat and highLat >= city.lat) and (
-        lowLon <= city.lon and highLon >= city.lon)]
+    within = []
+
+    for city in cities:
+        if lowLat <= city.lat <= highLat and lowLon <= city.lon <= highLon:
+            within.append(city)
+            print(city)
 
     # TODO Ensure that the lat and lon valuse are all floats
     # Go through each city and check to see if it falls within
     # the specified coordinates.
 
-    for city in within:
-        print(city)
+    print(within)
 
 
-# print(cityreader_stretch(32, -120, 45, -100, cities))
+cityreader_stretch(12, -120, 40, -50, cities)
